@@ -1,0 +1,5 @@
+
+*.pdb
+TTT/.vs/TTT/v15/.suo
+TTT/TTT/obj/Debug/*
+TTT/TTT/bin/Debug/*

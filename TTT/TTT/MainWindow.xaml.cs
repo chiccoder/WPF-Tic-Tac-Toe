@@ -31,7 +31,7 @@ namespace TTT
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             var clickedBtn = (Button)sender;
-            if (clickedBtn.Content==null)
+            if (clickedBtn.Content == null)
             {
                 if (CurrPlayer == Players.X)
                     clickedBtn.Content = "X";
@@ -57,12 +57,13 @@ namespace TTT
                 Button b1 = btns[a], b2 = btns[b], b3 = btns[c];// just to make the 
                                                                 // the code readable
 
-                if (b1.Content == null || b2.Content== null || b3.Content==null)    // any of the squares blank
+                if (b1.Content == null || b2.Content == null || b3.Content == null)    // any of the squares blank
                     continue;                                           // try another -- no need to go further
 
-                if (b1.Content == b2.Content&& b2.Content== b3.Content)           // are they the same?
+                if (b1.Content == b2.Content && b2.Content == b3.Content)           // are they the same?
                 {                                                       // if so, they WIN!
-                                                                        //  b1.Background = b2.Background = b3.Background = Color.LightCoral;
+                    WinnersGrid.Visibility = Visibility.Visible;
+                    WinText.Text = b1.Content + " WINS!";
                     break;  // don't bother to continue
                 }
             }
@@ -72,6 +73,18 @@ namespace TTT
         {
             var btn = (ToggleButton)sender;
             CurrPlayer = btn.Content.ToString() == "X" ? Players.X : Players.O;
+        }
+
+        private void Replay_Click(object sender, RoutedEventArgs e)
+        {
+            WinnersGrid.Visibility = Visibility.Collapsed;
+            var btns = Utils.FindVisualChildren<Button>(Root);
+            foreach (var item in btns)
+            {
+                if (item.Content!=null&&item.Content.ToString() != "Replay")
+                    item.Content = null;
+                CurrPlayer = Players.X;
+            }
         }
     }
 }

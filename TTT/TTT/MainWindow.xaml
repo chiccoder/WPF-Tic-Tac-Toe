@@ -13,9 +13,51 @@
 
                 <ResourceDictionary Source="pack://application:,,,/TTT;component/Resources/Dictionaries/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="FocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+            <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+            <Style x:Key="TTTButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Opacity" TargetName="border" Value=".7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid x:Name="Root">
+    <Grid x:Name="Root" TextBlock.FontFamily="SketchFlow Print" TextBlock.FontWeight="Bold" Background="{StaticResource PrimaryColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -26,9 +68,9 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ToggleButton Content="X" IsChecked="{Binding CurrPlayer, Converter={StaticResource PlayerToBool}, ConverterParameter=X}" Margin="30,20"  Background="{StaticResource PlayerOneColorBrush}" Foreground="White" Click="PlayerClick"/>
-            <ToggleButton Content="O" IsChecked="{Binding CurrPlayer, Converter={StaticResource PlayerToBool}, ConverterParameter=O}" Grid.Column="1" Margin="30,20"  Background="{StaticResource PlayerTwoColorBrush}" Foreground="Black" Click="PlayerClick"/> 
+            <ToggleButton Content="O" IsChecked="{Binding CurrPlayer, Converter={StaticResource PlayerToBool}, ConverterParameter=O}" Grid.Column="1" Margin="30,20"  Background="{StaticResource PlayerTwoColorBrush}" Foreground="Black" Click="PlayerClick"/>
         </Grid>
-        <Grid Grid.Row="1" Width="300" Height="300">
+        <Grid Grid.Row="1" Width="300" Height="300" TextBlock.FontSize="50">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -39,20 +81,25 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Click="ButtonClick" />
-            <Button Click="ButtonClick" Grid.Column="1" />
-            <Button Click="ButtonClick" Grid.Column="2" />
-            <Button Click="ButtonClick" Grid.Row="1"/>
-            <Button Click="ButtonClick" Grid.Column="1" Grid.Row="1"/>
-            <Button Click="ButtonClick" Grid.Column="2" Grid.Row="1"/>
-            <Button Click="ButtonClick" Grid.Row="2"/>
-            <Button Click="ButtonClick" Grid.Column="1" Grid.Row="2"/>
-            <Button Click="ButtonClick" Grid.Column="2" Grid.Row="2"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}" />
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}" Grid.Column="1" />
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Column="2" />
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Row="1"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Column="1" Grid.Row="1"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Column="2" Grid.Row="1"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Row="2"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Column="1" Grid.Row="2"/>
+            <Button Click="ButtonClick" Style="{DynamicResource TTTButton}"  Grid.Column="2" Grid.Row="2"/>
             <Rectangle Fill="{StaticResource SecondaryColorBrush}" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="7" />
             <Rectangle Fill="{StaticResource SecondaryColorBrush}" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="7" Grid.Row="1" />
             <Rectangle Fill="{StaticResource SecondaryColorBrush}" Grid.RowSpan="3" HorizontalAlignment="Right" Width="7" />
             <Rectangle Fill="{StaticResource SecondaryColorBrush}" Grid.RowSpan="3" HorizontalAlignment="Right" Width="7" Grid.Column="1" />
 
+        </Grid>
+        <Grid Grid.RowSpan="2" x:Name="WinnersGrid" Visibility="Collapsed">
+            <Rectangle Fill="Black" Opacity=".8" />
+            <TextBlock x:Name="WinText" Foreground="White" Text="X WINS!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"  />
+            <Button Background="Transparent" Content="Replay" Foreground="White" VerticalAlignment="Bottom" Margin="0 0 0 50" TextBlock.FontSize="25" BorderThickness="0" Style="{DynamicResource TTTButton}" Click="Replay_Click"/>
         </Grid>
     </Grid>
 </Window>

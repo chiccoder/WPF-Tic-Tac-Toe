@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace TTT
+namespace TTT.Converters
 {
     public class PlayerToBoolConverter : IValueConverter
     {

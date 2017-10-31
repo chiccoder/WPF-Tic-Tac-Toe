@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TTT.Resources.Dictionaries"
-                    xmlns:converters ="clr-namespace:TTT">
+                    xmlns:converters ="clr-namespace:TTT.Converters">
     <converters:PlayerToBoolConverter x:Key="PlayerToBool"/>
 </ResourceDictionary>

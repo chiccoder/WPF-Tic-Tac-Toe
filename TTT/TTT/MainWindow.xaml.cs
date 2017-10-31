@@ -34,16 +34,25 @@ namespace TTT
             if (clickedBtn.Content == null)
             {
                 if (CurrPlayer == Players.X)
+                {
                     clickedBtn.Content = "X";
+                    playerO.IsChecked = true;
+                    playerX.IsChecked = false;
+                }
                 else
+                {
                     clickedBtn.Content = "O";
+                    playerO.IsChecked = false;
+                    playerX.IsChecked = true;
+                }
+                NextPlayer();
+                CheckVictory();
             }
-            NextPlayer();
-            CheckVictory();
         }
         public void NextPlayer()
         {
             CurrPlayer = CurrPlayer == Players.X ? Players.O : Players.X;
+
         }
         public void CheckVictory()
         {
@@ -73,6 +82,17 @@ namespace TTT
         {
             var btn = (ToggleButton)sender;
             CurrPlayer = btn.Content.ToString() == "X" ? Players.X : Players.O;
+            if (CurrPlayer == Players.X)
+            {
+                playerX.IsChecked = true;
+                playerO.IsChecked = false;
+            }
+            else
+            {
+                playerX.IsChecked = false;
+                playerO.IsChecked = true;
+            }
+           
         }
 
         private void Replay_Click(object sender, RoutedEventArgs e)
